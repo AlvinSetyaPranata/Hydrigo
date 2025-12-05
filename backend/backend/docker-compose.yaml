@@ -1,0 +1,20 @@
+services:
+  timescaledb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hydrigo-timescaledb
+    environment:
+      POSTGRES_DB: hydrigo
+      POSTGRES_USER: hydrigo_admin
+      POSTGRES_PASSWORD: change_me
+      TIMESCALEDB_TELEMETRY: "off"
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  timescale_data:
+    driver: local
